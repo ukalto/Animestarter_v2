@@ -3,8 +3,7 @@ import os
 
 
 def getFiles():
-    list = os.listdir(os.getcwd() + "\Files")
-    return list
+    return os.listdir(os.getcwd() + "\Files")
 
 
 def getInput():
@@ -24,7 +23,7 @@ def getInput():
 
 def printFiles():
     for i, j in zip(getFiles(), range(len(getFiles()))):
-        print(str(j + 1)+" "+i)
+        print(str(j + 1) + " " + i)
 
 
 def main():
@@ -40,7 +39,7 @@ def main():
         # Episodes exist
         print("3")
     if number == 4:
-        # Animes to Watch
+        # Anime to Watch
         print("4")
 
 
