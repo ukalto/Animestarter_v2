@@ -114,18 +114,6 @@ def execute(chosenExecuteOptions):
         openLinks()
 
 
-# def execute(chosenExecuteOptions):
-#     match chosenExecuteOptions:
-#         case "1":
-#             createNewFile()
-#         case "2":
-#             removeFile()
-#         case "3":
-#             printFiles()
-#         case "4":
-#             openLinks()
-
-
 # main method which executes all methods
 def main():
     createFileDirectory()
