@@ -4,9 +4,7 @@ import pathlib
 
 # gets the directory the software is located in and
 directory = os.getcwd() + "\Files"
-# Todo: should clear the console not working yet
-clearConsole = lambda: os.system('cls')
-options = 5
+options = 6
 
 
 # if the Files directory doesn't exist it creates one
@@ -95,30 +93,37 @@ def openLinks(inputnf):
         webbrowser.open(i.strip())
 
 
-# Todo: No working completely
-# checks the given file if the word is in one of the links
+# returns all links existing in the given file that match the given word
 def checkFile(file, word):
     path = os.path.join(directory, file)
     file1 = open(path, 'r')
     lines = file1.readlines()
+    rows = []
     for i in lines:
         if i.__contains__(word):
-            return True
+            rows.append(i)
+    return rows
 
-# Todo: No working completely
-# goes through all Files and calls the checkFile method
+
+# goes through all files and calls the checkFile method
 def checkLinkExists():
     word = input("Enter a significant word which you want to search for: ")
     list1 = getFiles()
     for i in list1:
-        if checkFile(i, word):
-            return i
+        if checkFile(i, word) != []:
+            for j in checkFile(i, word):
+                print("Link: " + j + " File:" + i)
 
 
 # Todo: Another Option: Move Link from one file to another file
 # displays all options
 def displayOptions():
-    print("1 Create File | 2 Remove File | 3 Show Files | 4 Open File | 5 Check Link exists")
+    print("1 Create File | 2 Remove File | 3 Show Files | 4 Open File | 5 Check Link exists | 6 Clear Console")
+
+
+# clears the console
+def cls():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 
 # reads in the execute option which is selected
@@ -139,14 +144,16 @@ def chooseExecuteOptions():
 def execute(chosenExecuteOptions):
     if chosenExecuteOptions == 1:
         createNewFile()
-    if chosenExecuteOptions == 2:
+    elif chosenExecuteOptions == 2:
         removeFile()
-    if chosenExecuteOptions == 3:
+    elif chosenExecuteOptions == 3:
         printFiles()
-    if chosenExecuteOptions == 4:
+    elif chosenExecuteOptions == 4:
         openLinks(getFileInput())
-    if chosenExecuteOptions == 5:
+    elif chosenExecuteOptions == 5:
         checkLinkExists()
+    elif chosenExecuteOptions == 6:
+        cls()
 
 
 # main method which executes all methods
