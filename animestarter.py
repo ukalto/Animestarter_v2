@@ -4,7 +4,7 @@ import pathlib
 
 # gets the directory the software is located in and
 directory = os.getcwd() + "\Files"
-options = 6
+options = 7
 
 
 # if the Files directory doesn't exist it creates one
@@ -115,15 +115,30 @@ def checkLinkExists():
                 print("Link: " + j + " File:" + i)
 
 
-# Todo: Another Option: Move Link from one file to another file
-# displays all options
-def displayOptions():
-    print("1 Create File | 2 Remove File | 3 Show Files | 4 Open File | 5 Check Link exists | 6 Clear Console")
-
-
 # clears the console
 def cls():
     os.system('cls' if os.name == 'nt' else 'clear')
+
+
+def help():
+    print("1 Create File")
+    print("By choosing option 1 you are able to create a new file in the Files directory. If the file directory doesn't exist it will be created for you.")
+    print("2 Remove File")
+    print("By choosing option 2 you are able to remove an existing file.")
+    print("3 Show Files")
+    print("By choosing option 3 all files existing will be shown.")
+    print("4 Open File")
+    print("By choosing option 4 the links in the chosen file will be opened.")
+    print("5 Print Links")
+    print("By choosing option 5 you will enter a key word and all links having this word will be shown. In addition to that the information in which file they are will be shown.")
+    print("6 Clear Console")
+    print("By choosing option 6 clears the console.")
+
+
+# Todo: Another Option: Move Link from one file to another file
+# displays all options
+def displayOptions():
+    print("1 Create File | 2 Remove File | 3 Show Files | 4 Open File | 5 Print Links | 6 Clear Console | 7 Help")
 
 
 # reads in the execute option which is selected
@@ -154,6 +169,8 @@ def execute(chosenExecuteOptions):
         checkLinkExists()
     elif chosenExecuteOptions == 6:
         cls()
+    elif chosenExecuteOptions == 7:
+        help()
 
 
 # main method which executes all methods
