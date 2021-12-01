@@ -6,6 +6,7 @@ import pathlib
 directory = os.getcwd() + "\Files"
 # Todo: should clear the console not working yet
 clearConsole = lambda: os.system('cls')
+options = 5
 
 
 # if the Files directory doesn't exist it creates one
@@ -94,18 +95,38 @@ def openLinks(inputnf):
         webbrowser.open(i.strip())
 
 
-# Todo: Move Link from one file to another file
+# Todo: No working completely
+# checks the given file if the word is in one of the links
+def checkFile(file, word):
+    path = os.path.join(directory, file)
+    file1 = open(path, 'r')
+    lines = file1.readlines()
+    for i in lines:
+        if i.__contains__(word):
+            return True
+
+# Todo: No working completely
+# goes through all Files and calls the checkFile method
+def checkLinkExists():
+    word = input("Enter a significant word which you want to search for: ")
+    list1 = getFiles()
+    for i in list1:
+        if checkFile(i, word):
+            return i
+
+
+# Todo: Another Option: Move Link from one file to another file
 # displays all options
 def displayOptions():
-    print("1 Create File | 2 Remove File | 3 Show Files | 4 Open File")
+    print("1 Create File | 2 Remove File | 3 Show Files | 4 Open File | 5 Check Link exists")
 
 
 # reads in the execute option which is selected
 def chooseExecuteOptions():
     while True:
         try:
-            number = int(input("Enter a number from 1 to 4 to choose your option: "))
-            if not 1 <= number <= 4:
+            number = int(input("Enter a number from 1-" + str(options) + " to choose your option: "))
+            if not 1 <= number <= options:
                 raise ValueError
             else:
                 return number
@@ -124,6 +145,8 @@ def execute(chosenExecuteOptions):
         printFiles()
     if chosenExecuteOptions == 4:
         openLinks(getFileInput())
+    if chosenExecuteOptions == 5:
+        checkLinkExists()
 
 
 # main method which executes all methods
