@@ -112,7 +112,7 @@ def checkLinkExists():
     for i in list1:
         if checkFile(i, word) != []:
             for j in checkFile(i, word):
-                print("Link: " + j + " File:" + i)
+                print("Link: " + j + "File:" + i)
 
 
 # clears the console
@@ -175,6 +175,7 @@ def execute(chosenExecuteOptions):
 
 # main method which executes all methods
 def main():
+    global chooseExecuteOptions
     createFileDirectory()
     while True:
         displayOptions()
