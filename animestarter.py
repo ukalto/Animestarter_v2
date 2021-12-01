@@ -18,18 +18,25 @@ def getFiles():
     return os.listdir(directory)
 
 
-# reads in the input which file should be used
+# gets a file by its index
+def getFileByNumber(number):
+    list1 = getFiles()
+    return list1[number - 1]
+
+
+# reads in the input which file should be used and opens the links
 def getFileInput():
+    printFiles()
     while True:
         try:
-            number = int(input("Enter a number from 1 to " + str(len(getFiles())) + ": "))
+            inputnf = input("Enter a number from 1 to " + str(len(getFiles())) + " or the filename: ")
             # if number > getFiles() or number < 1:
-            if not 1 <= number <= len(getFiles()):
+            if not checkFiles(inputnf) and not 1 <= int(inputnf) <= len(getFiles()):
                 raise ValueError
             else:
-                return number
+                return inputnf
         except ValueError:
-            print("Sorry, I didn't understand that.")
+            print("This File does not exist.")
             continue
 
 
@@ -52,12 +59,21 @@ def createNewFile():
             print('File created')
 
 
+# checks if a File exists with certain String
+def checkFiles(checkString):
+    return getFiles().__contains__(checkString)
+
+
 # removes a file
 def removeFile():
     printFiles()
-    fileinput = input("Enter a file name that u want to remove : ")
+    fileinput = input("Enter a number from 1 to " + str(len(getFiles())) + " or the filename you want to remove: ")
     if fileinput != "":
-        path = os.path.join(directory, fileinput)
+        if (checkFiles(fileinput)):
+            path = os.path.join(directory, fileinput)
+        else:
+            file = getFileByNumber(int(fileinput))
+            path = os.path.join(directory, file)
         try:
             os.remove(path)
         except FileNotFoundError:
@@ -66,23 +82,19 @@ def removeFile():
             print('File removed')
 
 
-# opens all Links
-def openLinks():
-    number = getFileInput()
-    if number == 1:
-        # Finished Anime
-        print("1")
-    if number == 2:
-        # Waiting for new episodes
-        print("2")
-    if number == 3:
-        # Episodes exist
-        print("3")
-    if number == 4:
-        # Anime to Watch
-        print("4")
+# opens all Links with a given filename
+def openLinks(inputnf):
+    filename = inputnf
+    if not checkFiles(filename):
+        filename = getFileByNumber(int(inputnf))
+    path = os.path.join(directory, filename)
+    file1 = open(path, 'r')
+    lines = file1.readlines()
+    for i in lines:
+        webbrowser.open(i.strip())
 
 
+# Todo: Move Link from one file to another file
 # displays all options
 def displayOptions():
     print("1 Create File | 2 Remove File | 3 Show Files | 4 Open File")
@@ -92,7 +104,7 @@ def displayOptions():
 def chooseExecuteOptions():
     while True:
         try:
-            number = int(input("Enter a number from 1 to 4: "))
+            number = int(input("Enter a number from 1 to 4 to choose your option: "))
             if not 1 <= number <= 4:
                 raise ValueError
             else:
@@ -111,15 +123,15 @@ def execute(chosenExecuteOptions):
     if chosenExecuteOptions == 3:
         printFiles()
     if chosenExecuteOptions == 4:
-        openLinks()
+        openLinks(getFileInput())
 
 
 # main method which executes all methods
 def main():
     createFileDirectory()
-    displayOptions()
-    chosenExecuteOptions = chooseExecuteOptions()
-    execute(chosenExecuteOptions)
+    while True:
+        displayOptions()
+        execute(chooseExecuteOptions())
 
 
 if __name__ == "__main__":
